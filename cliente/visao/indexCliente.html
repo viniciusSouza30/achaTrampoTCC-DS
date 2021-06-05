@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Inicial</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/bootstrap.css">
+    <link rel="stylesheet" href="../../css/meuCss.css">
+    <link rel="stylesheet" href="../../libs/MaterialDesign/css/materialdesignicons.css">
+    <link rel="stylesheet" href="../../libs/sweetalert2/package/dist/sweetalert2.css">
+
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-my">
+        <a class="navbar-brand trabalhadoresPage" href="#!"><img src="../../img/1-removebg-preview-removebg-preview.png" class="img-fluid" width="200px" alt=""></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Alterna navegação">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-md-end" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link trabalhadoresPage" href="#!">Trabalhadores</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link minhasPublicacoesPage" href="#">Minhas publicações</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link perfilClientePage" href="#">Perfil</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link sairPeril" href="#">Sair</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div id="conteudoCliente"></div>
+    <div><button class="btn btn-lg btn-primary rounded-circle criarPublicacao" data-toggle="modal"><i class="mdi mdi-24px mdi-pencil"></i></button></div>
+
+    <div class="modal fade" id="criar">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Adicionar trabalho</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                    <form id="addTrabalho">
+                        <div class="form-row">
+                            <div class="form-group col-12">
+                                <label for="">Título*</label>
+                                <input type="text" class="form-control" name="tituloAdd" placeholder="Digite o título">
+                            </div>
+                            <div class="form-group col-12">
+                                <label for="">Data ou Prazo</label>
+                                <input type="date" class="form-control" name="prazoAdd" placeholder="Digite o título">
+                            </div>
+                            <div class="form-group col-12">
+                                <label for="atuacao">Atuação*</label>
+                                <select name="atuacaoAdd" class="form-control">
+                                <option selected disabled>Selecione a área em que trabalha</option>
+                                <option value="Eletricista">Eletricista</option>
+                                <option value="Encanador">Encanador</option>
+                                <option value="Manicure">Manicure</option>
+                                <option value="Babá">Babá</option>
+                                <option value="Diarista">Diarista</option>
+                            </select>
+                            </div>
+                            <div class="form-group col-12">
+                                <label for="">Descrição</label>
+                                <textarea name="descricaoAdd" id="descricao" class="form-control" cols="30" rows="10"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-success btn-publicar">Publicar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="editar">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Editar trabalho</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                    <form id="editTrabalho">
+
+                        <div class="form-row">
+                            <div class="form-group col-12">
+                                <label for="">Título*</label>
+                                <input type="text" class="form-control" name="titulo" placeholder="Digite o título" value="">
+                            </div>
+                            <div class="form-group col-12">
+                                <label for="">Data ou Prazo</label>
+                                <input type="date" class="form-control" name="prazo" placeholder="Digite o título" value="">
+                            </div>
+                            <div class="form-group col-12">
+                                <label for="">Avaliacão</label>
+                                <input type="number" class="form-control" name="avaliacao" placeholder="Digite a avaliação" value="" max="5" min="0">
+                            </div>
+                            <div class="form-group col-12" id="">
+                                <label for="trabalhador">Trabalhador</label>
+                                <input type="text" id="trabalhador" name="trabalhador" class="form-control" autocomplete="off">
+                                <input type="hidden" id="trablhadorId" name="trablhadorId" class="form-control">
+
+                                <div id="result"></div>
+
+
+                            </div>
+                            <div class="form-group col-12">
+                                <label for="status">Status do trabalho</label>
+                                <select name="statusTrabalho" id="" class="form-control">
+                                    <option value="Pendente">Pendente</option>
+                                    <option value="Concluido">Concluido</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-12">
+                                <label for="atuacao">Atuação*</label>
+                                <select name="atuacao" class="form-control">
+                                <option selected value=""></option>
+                                <option value="Eletricista">Eletricista</option>
+                                <option value="Encanador">Encanador</option>
+                                <option value="Manicure">Manicure</option>
+                                <option value="Babá">Babá</option>
+                                <option value="Diarista">Diarista</option>
+                            </select>
+                            </div>
+                            <div class="form-group col-12">
+                                <label for="">Descrição</label>
+                                <textarea name="descricao" id="descricao" class="form-control" cols="30" rows="10"></textarea>
+                            </div>
+                        </div>
+                        <input type="hidden" name="id" value="">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-success btn-editar">Editar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+    <script src="../../js/jquery-3.4.1.js"></script>
+    <script src="../../js/bootstrap.js"></script>
+    <script src="../../libs/sweetalert2/package/dist/sweetalert2.js"></script>
+    <script src="../../js/menu.js"></script>
+    <script src="../controle/add-trabalhos.js"></script>
+    <script src="../controle/update-trabalhos.js"></script>
+    <script src="../controle/list-trabalhadores.js"></script>
+    <script src="../controle/list-my-publicacoes.js"></script>
+    <script src="../../logout.js"></script>
+    <script src="../controle/excluir-publicacao.js"></script>
+    <script src="../controle/perfilCliente.js"></script>
+
+</body>
+
+</html>

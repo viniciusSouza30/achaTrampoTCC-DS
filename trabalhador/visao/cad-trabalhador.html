@@ -1,0 +1,143 @@
+<script type="text/javascript">
+    $(document).ready(function() {
+
+        $.getJSON('cidade_estado.json', function(data) {
+
+            var items = [];
+            var options = '<option value="">Escolha seu estado</option>';
+
+            $.each(data, function(key, val) {
+                options += '<option value="' + val.nome + '">' + val.nome + '</option>';
+            });
+            $("#estados").html(options);
+
+            $("#estados").change(function() {
+
+                var options_cidades = '';
+                var str = "";
+
+                $("#estados option:selected").each(function() {
+                    str += $(this).text();
+                });
+
+                $.each(data, function(key, val) {
+                    if (val.nome == str) {
+                        $.each(val.cidades, function(key_city, val_city) {
+                            options_cidades += '<option value="' + val_city + '">' + val_city + '</option>';
+                        });
+                    }
+                });
+
+                $("#cidades").html(options_cidades);
+
+            }).change();
+
+        });
+
+    });
+</script>
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col col-12">
+            <h2>Cadastro Trabalhador</h2>
+
+        </div>
+    </div>
+    <form id="cadTrabalhador" name="cadTrabalhador">
+        <div class="form-row">
+            <div class="form-group col-12 col-md-6">
+                <label for="nomeTrabalhador">Nome*</label>
+                <input type="text" class="form-control" name="nomeTrabalhador" id="nome" placeholder="Digite seu nome completo" required>
+                <span class="text-info nome"></span>
+            </div>
+            <div class="form-group col-12 col-md-4">
+                <label for="apelidoTrabalhador">Apelido</label>
+                <input type="text" class="form-control" name="apelidoTrabalhador" placeholder="Digite um apelido">
+            </div>
+            <div class="form-group col-12 col-md-2">
+                <label for="dataNascimentoTrabalhador">Nascimento*</label>
+                <input type="date" class="form-control" id="nascimento" name="dataNasciementoTrabalhador" required>
+                <span class="text-info nascimento"></span>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-12 col-md-2">
+                <label for="cpfTrabalhador">CPF*</label>
+                <input type="text" class="form-control" name="cpfTrabalhador" placeholder="00000000099" minlength="11" maxlength="11" id="cpf" required>
+                <span class="text-info cpf"></span>
+            </div>
+            <div class="form-group col-12 col-md-4">
+                <label for="atuacaoTrabalhador">Atuação*</label>
+                <select name="atuacaoTrabalhador" id="atuacao" class="form-control" required>
+                    <option selected disabled>Selecione a área em que trabalha</option>
+                    <option value="Eletricista">Eletricista</option>
+                    <option value="Encanador">Encanador</option>
+                    <option value="Manicure">Manicure</option>
+                    <option value="Babá">Babá</option>
+                    <option value="Diarista">Diarista</option>
+                </select>
+                <span class="text-info atuacao"></span>
+            </div>
+            <div class="form-group col-12 col-md-2">
+                <label for="estadoTrabalhador">Estado*</label>
+                <select name="estadoTrabalhador" id="estados" class="form-control" required>
+                    <option selected disabled></option>
+                </select>
+                <span class="text-info estados"></span>
+            </div>
+
+            <div class="form-group col-12 col-md-4">
+                <label for="cidadeTrabalhador">Cidade*</label>
+                <select name="cidadeTrabalhador" id="cidades" class="form-control" required>
+
+                </select>
+                <span class="text-info cidades"></span>
+            </div>
+        </div>
+        <div class="form-row">
+
+
+            <div class="form-group col-12 col-md-3">
+                <label for="telefoneTrabalhador">WhatsApp*</label>
+                <input required type="tel" class="form-control" name="telefoneTrabalhador" placeholder="99000000000" minlength="11" maxlength="11" id="telefone" required>
+                <small name="avisoSenha" class="form-text text-muted">Somente DDD e o número. Não precisa de traços e parênteses</small>
+                <span class="text-info telefone"></span>
+            </div>
+            <div class="form-group col-12 col-md-5">
+                <label for="emailTrabalhador">E-mail*</label>
+                <input type="email" class="form-control" name="emailTrabalhador" placeholder="seuemail@exemplo.com" id="email" required>
+                <span class="text-info email"></span>
+            </div>
+            <div class="form-group col-12 col-md-4">
+                <label for="senhaTrabalhador">Senha*</label>
+                <input type="password" class="form-control" name="senhaTrabalhador" id="senha" placeholder="Digite uma senha" maxlength="16" required>
+                <small id="avisoSenha" class="form-text text-muted">Permitido até 16 caracteres</small>
+                <span class="text-info senha"></span>
+            </div>
+            <!-- <div class="form-group col-12 col-md-3">
+                <label for="confirmacaoSenhaTrabalhador">Confirme sua senha*</label>
+                <input type="password" class="form-control" name="confirmacaoSenhaTrabalhador" id="confirmacaoSenhaTrabalhador" placeholder="Diie sua senha novamente">
+                <small name="avisoConfirmacaoSenhaClente" class="form-text text-muted"></small>
+            </div> -->
+        </div>
+
+
+
+        <div class="form-group">
+            <div class="form-check">
+                <input class="form-check-input" value="s" checked type="checkbox" id="termos " name="termos" required>
+                <label class="form-check-label " for="gridCheck ">
+          Concordo com os termos e condições
+        </label>
+                <span class="text-info termos "></span>
+            </div>
+        </div>
+        <button class="btn btn-primary btnCadTrabalhador ">Cadastrar</button>
+    </form>
+</div>
+
+
+
+<script src="trabalhador/controle/add-trabalhador.js "></script>
+<script src="js/validacao.js "></script>
